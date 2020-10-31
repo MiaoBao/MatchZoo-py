@@ -37,6 +37,7 @@ def load_data(
                          f"Must be one of `train`, `dev`, and `test`.")
 
     data_root = _download_data()
+    print(data_root)
     file_path = data_root.joinpath(f'WikiQA-{stage}.tsv')
     data_pack = _read_data(file_path, task)
     if filtered and stage in ('dev', 'test'):

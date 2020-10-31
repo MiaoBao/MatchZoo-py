@@ -5,6 +5,7 @@ import torch
 import torch.nn as nn
 from pytorch_transformers import BertModel
 
+
 from matchzoo import preprocessors
 from matchzoo.engine.param_table import ParamTable
 from matchzoo.engine.param import Param
@@ -13,6 +14,7 @@ from matchzoo.engine.base_preprocessor import BasePreprocessor
 from matchzoo.engine import hyper_spaces
 from matchzoo.dataloader import callbacks
 from matchzoo.modules import BertModule
+
 
 
 class Bert(BaseModel):
@@ -70,7 +72,7 @@ class Bert(BaseModel):
 
         input_left, input_right = inputs['text_left'], inputs['text_right']
 
-        bert_output = self.bert(input_left, input_right)[1]
+        bert_output = self.bert(input_left, input_right)[1] #get CLS embedding
 
         out = self.out(self.dropout(bert_output))
 

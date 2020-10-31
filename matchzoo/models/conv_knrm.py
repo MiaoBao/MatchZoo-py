@@ -82,7 +82,7 @@ class ConvKNRM(BaseModel):
         self.d_convs = nn.ModuleList()
         for i in range(self._params['max_ngram']):
             conv = nn.Sequential(
-                nn.ConstantPad1d((0, i), 0),
+                nn.ConstantPad1d((0, i), 0),   #(0,i) pad 0 and i times along each dim, pad value 0.
                 nn.Conv1d(
                     in_channels=self._params['embedding_output_dim'],
                     out_channels=self._params['filters'],
@@ -130,11 +130,12 @@ class ConvKNRM(BaseModel):
                     continue
                 mm = torch.einsum(
                     'bld,brd->blr',
-                    F.normalize(q_convs[qi], p=2, dim=-1),
+                    F.normalize(q_convs[qi], p=2, dim=-1), #normalize along embedding axis
                     F.normalize(d_convs[di], p=2, dim=-1)
                 )
+                # mm dim batch_size * query len * doc len
                 for kernel in self.kernels:
-                    K = torch.log1p(kernel(mm).sum(dim=-1)).sum(dim=-1)
+                    K = torch.log1p(kernel(mm).sum(dim=-1)).sum(dim=-1)  #log1p=log_e(1+x)
                     KM.append(K)
 
         phi = torch.stack(KM, dim=1)

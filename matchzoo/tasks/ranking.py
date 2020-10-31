@@ -23,7 +23,7 @@ class Ranking(base_task.BaseTask):
     @classmethod
     def list_available_losses(cls) -> list:
         """:return: a list of available losses."""
-        return ['mse']
+        return ['RankHingeLoss','RankCrossEntropyLoss']
 
     @classmethod
     def list_available_metrics(cls) -> list:

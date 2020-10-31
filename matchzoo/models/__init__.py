@@ -18,6 +18,8 @@ from .hbmp import HBMP
 from .duet import DUET
 from .diin import DIIN
 from .match_srnn import MatchSRNN
+from .bertknrm import BertKNRM
+from .bertknrm_ex import BertKNRMex
 
 
 def list_available() -> list:

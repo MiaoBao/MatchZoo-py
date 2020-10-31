@@ -1,0 +1,31 @@
+data loading ...
+data loaded as `train_pack_raw` `dev_pack_raw` `test_pack_raw`
+`ranking_task` initialized with metrics [normalized_discounted_cumulative_gain@3(0.0), normalized_discounted_cumulative_gain@5(0.0), mean_average_precision(0.0)]
+KNRM(
+  (embedding): Embedding(254001, 100, padding_idx=0)
+  (kernels): ModuleList(
+    (0): GaussianKernel()
+    (1): GaussianKernel()
+    (2): GaussianKernel()
+    (3): GaussianKernel()
+    (4): GaussianKernel()
+    (5): GaussianKernel()
+    (6): GaussianKernel()
+    (7): GaussianKernel()
+    (8): GaussianKernel()
+    (9): GaussianKernel()
+    (10): GaussianKernel()
+    (11): GaussianKernel()
+    (12): GaussianKernel()
+    (13): GaussianKernel()
+    (14): GaussianKernel()
+    (15): GaussianKernel()
+    (16): GaussianKernel()
+    (17): GaussianKernel()
+    (18): GaussianKernel()
+    (19): GaussianKernel()
+    (20): GaussianKernel()
+  )
+  (out): Linear(in_features=21, out_features=1, bias=True)
+)
+Trainable params:  25400122

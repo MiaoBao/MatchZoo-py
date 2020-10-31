@@ -52,7 +52,11 @@ class BaseModel(nn.Module, abc.ABC):
     ):
         """Init."""
         super().__init__()
-        self._params = params or self.get_default_params()
+        #self._params = params or 
+        self._params = self.get_default_params()
+        if params:
+            for k in params:
+                self._params[k] = params[k]
 
     @classmethod
     def get_default_params(

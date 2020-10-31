@@ -292,15 +292,17 @@ class Dataset(data.IterableDataset):
         pairs = []
         groups = relation.sort_values(
             'label', ascending=False).groupby('id_left')
-        for _, group in groups:
+        for leftid, group in groups:
+            print(leftid)
             labels = group.label.unique()
             for label in labels[:-1]:
                 pos_samples = group[group.label == label]
                 pos_samples = pd.concat([pos_samples] * num_dup)
+                pos_samples.index = np.arange(0,pos_samples.shape[0] * (num_neg + 1), num_neg + 1)
                 neg_samples = group[group.label < label]
-                for _, pos_sample in pos_samples.iterrows():
-                    pos_sample = pd.DataFrame([pos_sample])
-                    neg_sample = neg_samples.sample(num_neg, replace=True)
-                    pairs.extend((pos_sample, neg_sample))
+                neg_samples_new = neg_samples.sample(num_neg * pos_samples.shape[0], replace=True)
+                neg_samples_new.index = np.concatenate([np.arange(i, i + num_neg) for i in 
+                                  np.arange(1,pos_samples.shape[0] * (num_neg + 1) + 1,num_neg + 1)])
+                pairs.append(pd.concat([pos_samples, neg_samples_new]).sort_index())
         new_relation = pd.concat(pairs, ignore_index=True)
         return new_relation

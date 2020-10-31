@@ -24,7 +24,7 @@ class BertModule(nn.Module):
         super().__init__()
         self.bert = BertModel.from_pretrained(mode)
 
-    def forward(self, x, y):
+    def forward(self, x,y):
         """Forward."""
         input_ids = torch.cat((x, y), dim=-1)
         token_type_ids = torch.cat((
@@ -33,3 +33,11 @@ class BertModule(nn.Module):
         attention_mask = (input_ids != 0)
         return self.bert(input_ids=input_ids, token_type_ids=token_type_ids,
                          attention_mask=attention_mask)
+    
+    def forward(self, x):
+        """Forward."""
+        token_type_ids = torch.zeros_like(x).long()
+        attention_mask = (x != 0)
+        return self.bert(input_ids=x, token_type_ids=token_type_ids,
+                         attention_mask=attention_mask)
+
